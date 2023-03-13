@@ -1,0 +1,16 @@
+1: Pasos para correr el código:
+
+- Prerrequisitos: Tener instalado python y pip en el computador
+
+- Descargar la carpeta "Prueba Rurall".
+
+- En la línea de comandos, estando dentro de la carpeta, utilizar el comando "pip install requirements.txt", para instalar las librerías requeridas definidas en ese archivo.
+
+- Correr desde la línea de comandos o usando herramientas como Visual Code el código. Desde la línea de comandos, solo es necesario escribir el comando "python prueba_rurall.py"
+
+2 y 3: Comentarios sobre el algoritmo y su desempeño
+- El algoritmo escogido fue una red neuronal profunda con 5 capas: una de 128 neuronas, otra de 64, otra de 32, otra de 16 y finalmente la última de una neurona, la cual da la predicción del precio de los medicamentos de la base de datos de prueba. Escogí como métrica de rendimiento el error cuadrático medio, dado que esta métrica es sensible a outliers en el precio predicho, en comparación con el error absoluto medio, dado que los precios varían en un rango amplio de valores, entre 0.5 y 900. Con esos hiperparámetros se obtuvo el mejor valor, 1636, recordando que entre más bajo es este valor, mejor la predicción. Su raíz, el “root mean squared error”, da aproximadamente 40, y nos una idea de la desviación estándar de la predicción. Teniendo en cuenta el amplio rango de valores de precio del set de entrenamiento, esta es una predicción decente. Usando otras métricas, como r2 y el error absoluto medio, se obtienen valores de 0.73 y 14 respectivamente. El que el valor del r2 sea 0.73 indica que el modelo explica el 73% de la varianza del modelo. En ocasiones, en un modelo de predicción, y dependiendo de los objetivos, se busca un r2 de 0.9 o más, lo cual indica que aún hay un margen de mejora.
+
+- Se escogió este algoritmo sobre otros porque dio el mejor rendimiento, tanto para el r2, el error cuadrático y el error absoluto medio. Inicialmente se intentó hacer un modelo de regresión lineal, dada su interpretabilidad, además de sus variaciones Lasso y Ridge, pero el r2 y los errores cuadráticos medios daban no mejoraban de 0.53 y 2800 respectivamente. Esto motivó pasar a otros modelos simples como “K Nearest Neighbors”, pero tampoco mejoró mucho. Debido a esto, comencé a experimentar con modelos más complejos como “Decision Tree Regression”, “Random Forest” y “Gradient Boosting”. Con esto, el r2 mejoró hasta 0.63 después de hacer pruebas para diferentes hiperparámetros y el error cuadrático medio hasta 2400, lo cual me pareció bastante limitado. Debido a ello, pasé al modelo más complejo que conozco, el de redes neuronales, y encontré las métricas de rendimiento descritas en el párrafo anterior.
+
+- Cabe mencionar que el algoritmo funciona usando 50 features. Estos features son una mezcla de haber hecho feature engineering con patrones regulares sobre la columna “description” y variables dummies obtenidas de las variables “categóricas” originales en los sets drugs_train.csv y drugs_test.csv. Se escogieron 50 features de un posible total de 715 obtenidos después de haber hecho feature engineering, dado que este fue el número de features que mejor desempeño dio sobre la base de datos de entrenamiento después de hacer cross validation.
